@@ -1,13 +1,15 @@
 import { DINCREMENT, DDECREMENT } from './actionTypes';
 
-export const increase = () => {
+export const increase = (value) => {
   return {
     type: DINCREMENT,
+    payload: value,
   };
 };
 
-export const decrease = () => {
+export const decrease = (value) => {
   return {
     type: DDECREMENT,
+    payload: value,
   };
 };
