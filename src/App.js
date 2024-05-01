@@ -1,6 +1,7 @@
 import { store } from './redux/store';
-import StaticCounter from './components/StaticCounter';
+import { DynamicCounter } from './components/DynamicCounter';
 import { Provider } from 'react-redux';
+import { HooksCounter } from './components/HooksCounter';
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
           Simple Counter Application
         </h1>
 
-        <StaticCounter />
+        <HooksCounter />
+        <DynamicCounter />
+        <DynamicCounter dynamic/>
       </div>
     </Provider>
   );
