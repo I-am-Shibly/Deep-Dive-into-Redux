@@ -1,18 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
-import { rootReducer } from './rootReducer';
+import {rootReducer} from './rootReducer';
+import { customLogger } from './customLogger/logger';
+import Logger from 'redux-logger'
 
-const customLogger =
-  ({ getState, dispatch }) =>
-  (next) =>
-  (action) => {
-    console.log(`action: ${JSON.stringify(action)}`);
-    console.log(`current: ${JSON.stringify(getState())}`);
-
-    console.log(
-      `next state: ${JSON.stringify([action].reduce(rootReducer, getState()))}`
-    );
-
-    next(action);
-  };
-
-export const store = createStore(rootReducer, applyMiddleware(customLogger));
+export const store = createStore(rootReducer, applyMiddleware(customLogger, Logger));
