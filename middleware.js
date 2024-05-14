@@ -12,4 +12,14 @@ const delayMiddleware = (store) => (next) => (action) => {
   return next(action);
 };
 
-module.exports = { delayMiddleware };
+const thunkMiddleware = (store) => (next) => (action) => {
+  if (typeof action === 'function') {
+    return action(store.dispatch, store.getState);
+  }
+
+  next(action);
+};
+
+module.exports = {
+    delayMiddleware, thunkMiddleware
+}
