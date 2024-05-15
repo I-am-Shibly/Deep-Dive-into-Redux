@@ -4,6 +4,7 @@ import {
   CLEAR_COMPLETED,
   COLOR_CHANGE,
   DELETE_TODO,
+  TODO_LOADED,
   TOGGLE,
 } from './actionTypes';
 
@@ -29,6 +30,9 @@ const newId = (array) => {
 
 export const todoReducer = (state = initialState, action) => {
   switch (action.type) {
+    case TODO_LOADED:
+      return action.payload;
+
     case ADD_TODO:
       if (action.payload.trim() !== '') {
         return [

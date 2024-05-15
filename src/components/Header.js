@@ -3,11 +3,11 @@ import plusImg from '../assets/images/plus.png';
 import tickImg from '../assets/images/double-tick.png';
 import { useDispatch } from 'react-redux';
 import {
-  addTodo,
   allComplete,
   clearCompleted,
 } from '../redux/todoSlice/actions';
 import { useState } from 'react';
+import { addTodoThunk } from '../redux/todoSlice/thunk/addTodo';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const Header = () => {
     e.preventDefault();
 
     if (todo?.trim() !== '') {
-      dispatch(addTodo(todo));
+      dispatch(addTodoThunk(todo));
       setTodo('');
       return;
     }

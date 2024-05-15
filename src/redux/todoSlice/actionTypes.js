@@ -1,3 +1,4 @@
+export const TODO_LOADED = 'todoSlice/loadTodo';
 export const ADD_TODO = 'todoSlice/addTodo';
 export const ALL_COMPLETE = 'todoSlice/allComplete';
 export const CLEAR_COMPLETED = 'todoSlice/clearCompleted';
