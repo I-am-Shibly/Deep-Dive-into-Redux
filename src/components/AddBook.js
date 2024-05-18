@@ -18,16 +18,18 @@ const AddBook = ({ book }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setFormMode('Edit');
-    setFormData({
-      id: book?.id,
-      name: book?.name,
-      author: book?.author,
-      thumbnail: book?.thumbnail,
-      price: book?.price,
-      rating: book?.rating,
-      featured: book?.featured,
-    });
+    if (book) {
+      setFormMode('Edit');
+      setFormData({
+        id: book.id,
+        name: book.name,
+        author: book.author,
+        thumbnail: book.thumbnail,
+        price: book.price,
+        rating: book.rating,
+        featured: book.featured,
+      });
+    }
   }, [book]);
 
   const submitHandler = (e) => {
@@ -154,7 +156,7 @@ const AddBook = ({ book }) => {
         </div>
 
         <button type="submit" className="submit" id="submit">
-          {formMode === 'Edit' ? 'Update Book' : 'Add Book'}
+          {formMode === 'Add' ? 'Add Book' : 'Update Book'}
         </button>
       </form>
     </div>
