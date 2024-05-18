@@ -20,17 +20,37 @@ const Home = () => {
     setEditBook(book);
   };
 
+  const filterByMenu = (bookObject) => {
+    switch (filterBooks.menuItem) {
+      case 'Featured':
+        return bookObject.featured;
+
+      default:
+        return true;
+    }
+  };
+
+  const filterBySearch = (bookObject) => {
+    return (
+      bookObject.name.toLowerCase().includes(filterBooks.searchKey) ||
+      bookObject.author.toLowerCase().includes(filterBooks.searchKey)
+    );
+  };
+
   return (
     <div>
       <Nav />
-      <main class="py-12 2xl:px-6">
-        <div class="container grid xl:grid-cols-[auto_350px] 2xl:grid-cols-[auto_400px] gap-4 2xl:gap-8">
-          <div class="order-2 xl:-order-1">
+      <main className="py-12 2xl:px-6">
+        <div className="container grid xl:grid-cols-[auto_350px] 2xl:grid-cols-[auto_400px] gap-4 2xl:gap-8">
+          <div className="order-2 xl:-order-1">
             <FilterMenu />
             {books.length > 0
-              ? books.map((book) => (
-                  <BookCard book={book} key={book.id} onEdit={handleEdit} />
-                ))
+              ? books
+                  .filter(filterByMenu)
+                  .filter(filterBySearch)
+                  .map((book) => (
+                    <BookCard book={book} key={book.id} onEdit={handleEdit} />
+                  ))
               : 'No book found'}
           </div>
           <AddBook book={editBook} />

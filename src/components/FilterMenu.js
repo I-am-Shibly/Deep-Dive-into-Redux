@@ -1,15 +1,34 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterByMenu } from '../redux/filterSlice/actions';
 
 const FilterMenu = () => {
-  return (
-    <div class="flex items-center justify-between mb-12">
-      <h4 class="mt-2 text-xl font-bold">Book List</h4>
+  const menu = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
 
-      <div class="flex items-center space-x-4">
-        <button class="filter-btn active-filter" id="lws-filterAll">
+  const handleClick = (input) => {
+    dispatch(filterByMenu(input));
+  };
+
+  return (
+    <div className="flex items-center justify-between mb-12">
+      <h4 className="mt-2 text-xl font-bold">Book List</h4>
+
+      <div className="flex items-center space-x-4">
+        <button
+          className={`filter-btn ${menu.menuItem === 'All' && 'active-filter'}`}
+          id="filterAll"
+          onClick={() => handleClick('All')}
+        >
           All
         </button>
-        <button class="filter-btn" id="lws-filterFeatured">
+        <button
+          className={`filter-btn ${
+            menu.menuItem === 'Featured' && 'active-filter'
+          }`}
+          id="filterFeatured"
+          onClick={() => handleClick('Featured')}
+        >
           Featured
         </button>
       </div>

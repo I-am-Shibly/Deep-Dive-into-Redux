@@ -1,31 +1,38 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteBookThunk } from '../redux/bookSlice/thunk/deleteBookThunk';
 
 const BookCard = ({ book, onEdit }) => {
-  const { name, author, thumbnail, price, rating, featured } = book;
+  const { name, author, thumbnail, price, rating, featured, id } = book;
+  const dispatch = useDispatch();
 
   const editBook = (book) => {
     onEdit(book);
   };
 
+  const deleteBookHandler = (id) => {
+    dispatch(deleteBookThunk(id));
+  };
+
   return (
-    <div class="lws-bookContainer">
-      <div class="book-card">
+    <div className="bookContainer">
+      <div className="book-card">
         <img
-          class="h-[240px] w-[170px] object-cover lws-bookThumbnail"
+          className="h-[240px] w-[170px] object-cover bookThumbnail"
           src={thumbnail}
           alt="book"
         />
-        <div class="flex-1 h-full pr-2 pt-2 flex flex-col">
-          <div class="flex items-center justify-between">
-            {featured && <span class="badge-success lws-Badge">featured</span>}
-            <div class="text-gray-500 space-x-2">
-              <button class="lws-edit" onClick={() => editBook(book)}>
+        <div className="flex-1 h-full pr-2 pt-2 flex flex-col">
+          <div className="flex items-center justify-between">
+            {featured && <span className="badge-success Badge">featured</span>}
+            <div className="text-gray-500 space-x-2">
+              <button className="edit" onClick={() => editBook(book)}>
                 <svg
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                 >
                   <path
                     stroke-linecap="round"
@@ -34,13 +41,13 @@ const BookCard = ({ book, onEdit }) => {
                   />
                 </svg>
               </button>
-              <button class="lws-delete">
+              <button className="delete" onClick={() => deleteBookHandler(id)}>
                 <svg
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                 >
                   <path
                     stroke-linecap="round"
@@ -52,15 +59,15 @@ const BookCard = ({ book, onEdit }) => {
             </div>
           </div>
 
-          <div class="space-y-2 mt-4 h-full">
-            <h4 class="lws-bookName">{name}</h4>
-            <p class="lws-author">{author}</p>
-            <div class="lws-stars">
+          <div className="space-y-2 mt-4 h-full">
+            <h4 className="bookName">{name}</h4>
+            <p className="author">{author}</p>
+            <div className="stars">
               {[...Array(rating)].map((star, index) => (
                 <svg
                   viewBox="0 0 20 20"
                   fill="currentColor"
-                  class="lws-star"
+                  className="star"
                   key={index}
                 >
                   <path
@@ -71,7 +78,7 @@ const BookCard = ({ book, onEdit }) => {
                 </svg>
               ))}
             </div>
-            <p class="lws-price">{price} BDT</p>
+            <p className="price">{price} BDT</p>
           </div>
         </div>
       </div>
