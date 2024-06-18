@@ -22,10 +22,16 @@ const filterSlice = createSlice({
     },
 
     searched: (state, action) => {
-      state.searchKey += action.payload;
+      state.searchKey = action.payload;
+      console.log(state.searchKey);
+    },
+
+    reset: (state) => {
+      state.searchKey = '';
+      state.tagItem = [];
     },
   },
 });
 
-export const { searched, tagRemoved, tagSelected } = filterSlice.actions;
+export const { searched, tagRemoved, tagSelected, reset } = filterSlice.actions;
 export default filterSlice.reducer;

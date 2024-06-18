@@ -25,7 +25,9 @@ const Videos = () => {
 
   if (searchKey && searchKey.trim() !== '') {
     filteredVideos = filteredVideos.filter((video) =>
-      video.tags.toLowerCase().includes(searchKey.toLowerCase())
+      video.tags
+        .map((tag) => tag.toLowerCase())
+        .includes(searchKey.toLowerCase())
     );
   }
 
