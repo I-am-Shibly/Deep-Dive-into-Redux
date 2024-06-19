@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Video from './Video';
 import { useSelector, useDispatch } from 'react-redux';
 import { getVideos } from '../features/videos/VideosSlice';
 import Loading from './Loading';
 
-const Videos = () => {
+const Videos = ({ videosPerPage, currentPage }) => {
   const { loading, videos, isError, error } = useSelector(
     (state) => state.videos
   );
@@ -31,12 +31,16 @@ const Videos = () => {
     );
   }
 
+  const lastVideoIndex = currentPage * videosPerPage;
+  const firstVideoIndex = lastVideoIndex - videosPerPage;
+  const currentVideos = filteredVideos.slice(firstVideoIndex, lastVideoIndex);
+
   let content;
 
   if (loading && !isError) {
     content = <Loading />;
   } else if (!loading && !isError && filteredVideos.length > 0) {
-    content = filteredVideos.map((video) => (
+    content = currentVideos.map((video) => (
       <Video video={video} key={video.id} />
     ));
   } else if (!loading && isError) {
