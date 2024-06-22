@@ -1,8 +1,8 @@
 import React from 'react';
 import RelatedPosts from '../components/sidebar/RelatedPosts';
-import BlogDetails from '../components/PostDetails';
+import BlogDetails from '../components/BlogDetails';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../features/blogs/blogSlice';
 
 const PostPage = () => {
@@ -11,6 +11,9 @@ const PostPage = () => {
   const handleGoHomeClick = () => {
     dispatch(reset());
   };
+
+  const { blog } = useSelector((state) => state.blog);
+  const { id, tags } = blog;
 
   return (
     <>
@@ -26,7 +29,7 @@ const PostPage = () => {
       </div>
       <section className="post-page-container">
         <BlogDetails />
-        <RelatedPosts />
+        <RelatedPosts id={id} tags={tags} />
       </section>
     </>
   );

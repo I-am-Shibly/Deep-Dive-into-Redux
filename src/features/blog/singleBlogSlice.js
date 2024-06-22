@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchBlog, doLike } from './singleBlogApi';
+import { fetchBlog, doLike, saveHandler } from './singleBlogApi';
 
 const initialState = {
   loading: false,
@@ -20,10 +20,17 @@ export const updateBlog = createAsyncThunk(
   }
 );
 
+export const updateBookmark = createAsyncThunk(
+  'updateBookmark',
+  async ({ id, isSaved }) => {
+    return await saveHandler({ id, isSaved });
+  }
+);
+
 const singleBlogSlice = createSlice({
   name: 'blog',
   initialState,
- 
+
   extraReducers: (builder) => {
     builder
       .addCase(getBlog.pending, (state) => {
@@ -61,7 +68,29 @@ const singleBlogSlice = createSlice({
         state.isError = true;
         state.error = action.error.message;
       });
+      
+    // update bookmark
+    builder
+      .addCase(updateBookmark.pending, (state) => {
+        state.isUpdating = true;
+        state.error = '';
+      })
+      .addCase(updateBookmark.fulfilled, (state, action) => {
+        if (state.blog.id === action.payload.id) {
+          state.blog = { ...state.blog, isSaved: action.payload.isSaved };
+        }
+
+        state.isUpdating = false;
+        state.error = '';
+      })
+      .addCase(updateBookmark.rejected, (state, action) => {
+        state.loading = false;
+        state.isError = true;
+        state.error = action.error.message;
+      });
   },
+
+
 });
 
 export default singleBlogSlice.reducer;

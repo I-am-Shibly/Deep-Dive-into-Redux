@@ -40,7 +40,7 @@ const BlogDetails = () => {
           <div className="btn-group">
             <LikeHandler likes={likes} id={id} />
 
-            {isSaved && <Bookmark />}
+            <Bookmark id={id} isSaved={isSaved} />
           </div>
           <div className="mt-6">
             <p>{description}</p>

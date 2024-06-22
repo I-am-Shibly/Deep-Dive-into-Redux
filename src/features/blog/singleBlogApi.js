@@ -17,3 +17,16 @@ export const doLike = async ({ likes, id }) => {
   );
   return response.data;
 };
+
+export const saveHandler = async ({ id, isSaved }) => {
+  const response = await api.patch(
+    `blogs/${id}`,
+    { isSaved },
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    }
+  );
+  return response.data;
+};

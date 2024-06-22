@@ -1,13 +1,14 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/redux.svg';
 
 const Navbar = () => {
   return (
     <nav className="py-4 border-b">
       <div className="navbar-container">
         <div className="logo">
-          <a href="index.html">
-            <img src="./images/LWSBlog.svg" alt="search" />
-          </a>
+          <Link to="/">
+            <img src={logo} alt="home" height={50} width={50} />
+          </Link>
         </div>
         <div className="auth-buttons">
           <button className="btn btn-primary">sign in</button>
