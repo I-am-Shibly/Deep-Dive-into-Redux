@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import currentBalanceReducer from '../features/currentBalance/balanceSlice';
+import addNewTransactionReducer from '../features/addTransaction/addTransactionSlice';
+import allTransactionsReducer from '../features/allTransactions/allTransactionsSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    balance: currentBalanceReducer,
+    newTransaction: addNewTransactionReducer,
+    allTransactions: allTransactionsReducer,
   },
 });
