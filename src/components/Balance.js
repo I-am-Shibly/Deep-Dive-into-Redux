@@ -24,8 +24,6 @@ const Balance = () => {
     );
   } else if (isError) {
     content = <h3>{error}</h3>;
-  } else {
-    content = <h2>No data found!</h2>;
   }
 
   return <>{content}</>;

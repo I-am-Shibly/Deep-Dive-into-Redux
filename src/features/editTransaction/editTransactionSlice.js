@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addNewTransaction } from './addTransactionApi';
+import { editTransaction } from './editTransactionApi';
 import { getAllTransactions } from '../allTransactions/allTransactionsSlice';
 
-export const addTransaction = createAsyncThunk(
-  'addTransaction',
-  async (data, { dispatch }) => {
-    await addNewTransaction(data);
+export const modifyTransaction = createAsyncThunk(
+  'modifyTransaction',
+  async ({ data, id }, { dispatch }) => {
+    await editTransaction({ id, data });
     dispatch(getAllTransactions());
   }
 );
@@ -17,17 +17,17 @@ const initialState = {
 };
 
 const addTransactionSlice = createSlice({
-  name: 'addTransaction',
+  name: 'modifyTransaction',
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(addTransaction.pending, (state) => {
+      .addCase(modifyTransaction.pending, (state) => {
         state.loading = true;
       })
-      .addCase(addTransaction.fulfilled, (state, action) => {
+      .addCase(modifyTransaction.fulfilled, (state, action) => {
         state.loading = false;
       })
-      .addCase(addTransaction.rejected, (state, action) => {
+      .addCase(modifyTransaction.rejected, (state, action) => {
         state.loading = false;
         state.isError = true;
         state.error = action.error.message;

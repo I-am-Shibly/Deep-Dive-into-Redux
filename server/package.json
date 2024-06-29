@@ -1,6 +1,6 @@
 {
   "name": "json-server-expense-tracker",
-  "description": "Example in memory Expense Tracker api with json-server",
+  "description": "Expense Tracker api with json-server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

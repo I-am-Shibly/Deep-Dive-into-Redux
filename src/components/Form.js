@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTransaction } from '../features/addTransaction/addTransactionSlice';
-import { getAllTransactions } from '../features/allTransactions/allTransactionsSlice';
+import { modifyTransaction } from '../features/editTransaction/editTransactionSlice';
 
-const Form = () => {
+const Form = ({ selectedTransaction, setSelectedTransaction }) => {
   const [inputData, setInputData] = useState({});
+  const [editMode, setEditMode] = useState(false);
   const dispatch = useDispatch();
 
   const handleInputData = (field, value) => {
@@ -14,12 +15,41 @@ const Form = () => {
     }));
   };
 
+  useEffect(() => {
+    if (selectedTransaction) {
+      setInputData(selectedTransaction);
+      setEditMode(true);
+    } else {
+      setInputData({});
+      setEditMode(false);
+    }
+  }, [selectedTransaction]);
+
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(addTransaction(inputData)).then(() =>
-      dispatch(getAllTransactions())
-    );
+    if (editMode && selectedTransaction) {
+      dispatch(
+        modifyTransaction({
+          id: inputData.id,
+          data: inputData,
+        })
+      );
+      setEditMode(false);
+      setInputData({});
+      setSelectedTransaction(null);
+      return;
+    }
+
+    dispatch(addTransaction(inputData));
+    setInputData({});
+    setSelectedTransaction(null);
+  };
+
+  const cancelEdit = () => {
+    setSelectedTransaction(null);
+    setEditMode(false);
+    setInputData({});
   };
 
   return (
@@ -32,6 +62,7 @@ const Form = () => {
           type="text"
           name="transaction_name"
           placeholder="মাসিক বেতন"
+          value={inputData.name || ''}
           onChange={(e) => handleInputData('name', e.target.value)}
           required
         />
@@ -64,19 +95,24 @@ const Form = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="transaction_amount">পরিমাণ</label>
+        <label htmlFor="transaction_amount">পরিমাণ (টাকায়)</label>
         <input
           type="number"
           placeholder="৫০০"
           name="transaction_amount"
-          onChange={(e) => handleInputData('amount', Number(e.target.value))}
+          value={inputData.amount || ''}
+          onChange={(e) => handleInputData('amount', e.target.value)}
           required
         />
       </div>
 
-      <button className="btn">যোগ করুন</button>
+      <button className="btn">{editMode ? 'হালনাগাদ করুন' : 'যোগ করুন'}</button>
 
-      <button className="btn cancel_edit">Cancel Edit</button>
+      {editMode && (
+        <button type="button" className="btn cancel_edit" onClick={cancelEdit}>
+          বাতিল করুন
+        </button>
+      )}
     </form>
   );
 };

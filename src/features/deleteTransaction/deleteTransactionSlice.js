@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addNewTransaction } from './addTransactionApi';
+import { deleteTransaction } from './deleteTransactionApi';
 import { getAllTransactions } from '../allTransactions/allTransactionsSlice';
 
-export const addTransaction = createAsyncThunk(
-  'addTransaction',
-  async (data, { dispatch }) => {
-    await addNewTransaction(data);
+export const removeTransaction = createAsyncThunk(
+  'removeTransaction',
+  async (id, { dispatch }) => {
+    await deleteTransaction(id);
     dispatch(getAllTransactions());
   }
 );
@@ -16,18 +16,18 @@ const initialState = {
   error: '',
 };
 
-const addTransactionSlice = createSlice({
-  name: 'addTransaction',
+const removeTransactionSlice = createSlice({
+  name: 'removeTransaction',
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(addTransaction.pending, (state) => {
+      .addCase(removeTransaction.pending, (state) => {
         state.loading = true;
       })
-      .addCase(addTransaction.fulfilled, (state, action) => {
+      .addCase(removeTransaction.fulfilled, (state, action) => {
         state.loading = false;
       })
-      .addCase(addTransaction.rejected, (state, action) => {
+      .addCase(removeTransaction.rejected, (state, action) => {
         state.loading = false;
         state.isError = true;
         state.error = action.error.message;
@@ -35,4 +35,4 @@ const addTransactionSlice = createSlice({
   },
 });
 
-export default addTransactionSlice.reducer;
+export default removeTransactionSlice.reducer;

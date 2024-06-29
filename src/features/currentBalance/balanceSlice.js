@@ -16,11 +16,11 @@ const currentBalance = createSlice({
 
       const totalIncome = transactions
         .filter((t) => t.type === 'income')
-        .reduce((total, t) => total + t.amount, 0);
+        .reduce((total, t) => total + Number(t.amount), 0);
 
       const totalExpense = transactions
         .filter((t) => t.type === 'expense')
-        .reduce((total, t) => total + t.amount, 0);
+        .reduce((total, t) => total + Number(t.amount), 0);
 
       state.balance = totalIncome - totalExpense;
     },

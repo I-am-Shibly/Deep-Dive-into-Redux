@@ -16,11 +16,11 @@ export const transformToBengaliDigits = (number) => {
   const formattedNumber = addCommas(number);
 
   return formattedNumber
-    .split('')
+    ?.split('')
     .map((digit) => bengaliDigits[digit] || digit)
     .join('');
 };
 
 const addCommas = (number) => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
