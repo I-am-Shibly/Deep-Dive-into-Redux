@@ -1,0 +1,46 @@
+{
+  "jobs": [
+    {
+      "title": "Senior Executive",
+      "type": "Remote",
+      "salary": "20000",
+      "deadline": "2023-12-21",
+      "id": 3
+    },
+    {
+      "title": "Social Media Manager",
+      "type": "Full Time",
+      "salary": "20000",
+      "deadline": "2023-11-30",
+      "id": 5
+    },
+    {
+      "title": "Android App Developer",
+      "type": "Remote",
+      "salary": "35000",
+      "deadline": "2023-12-31",
+      "id": 6
+    },
+    {
+      "title": "Full Stack Developer",
+      "type": "Internship",
+      "salary": "18000",
+      "deadline": "2023-12-31",
+      "id": 7
+    },
+    {
+      "title": "Software Developer",
+      "type": "Full Time",
+      "salary": "67000",
+      "deadline": "2024-07-31",
+      "id": 8
+    },
+    {
+      "title": "Product Manager",
+      "type": "Remote",
+      "salary": "34000",
+      "deadline": "2024-07-28",
+      "id": 9
+    }
+  ]
+}
